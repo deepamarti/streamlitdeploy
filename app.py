@@ -8,6 +8,11 @@ from tensorflow.keras.preprocessing.image import load_img, img_to_array, array_t
 import numpy as np
 import time
 
+# Sources:
+# https://blog.jcharistech.com/2021/01/21/how-to-save-uploaded-files-to-directory-in-streamlit-apps/
+# https://towardsdatascience.com/image-classification-of-uploaded-files-using-streamlits-killer-new-feature-7dd6aa35fe0
+# https://medium.com/analytics-vidhya/deploying-image-classification-model-on-streamlit-e9579ccda157
+
 fig = plt.figure()
 
 with open("custom.css") as f:
@@ -40,24 +45,16 @@ def main():
     class_btn = st.button("Classify")
     if file_uploaded is not None:
         file_details = {"FileName":file_uploaded.name,"FileType":file_uploaded.type}
-        st.write(file_details)
         img = load_image(file_uploaded)
-        #st.image(img,height=250,width=250)
         with open(os.path.join("tempDir",file_uploaded.name),"wb") as f:
             f.write(file_uploaded.getbuffer())
-        #image_data = file_uploaded.read()
-        #bytes_data = image_data.getvalue()
-        #scr = BytesIO(file_uploaded.getvalue()).read()
-        st.success("Saved File")
-        #st.write(file_uploaded.name)
-        #data = Image.open(img)
+
         img = load_img('./tempDir/' + file_uploaded.name, target_size = (224, 224))
         img = img_to_array(img)
         image = Image.open(file_uploaded)
 
         img = np.expand_dims(img, axis = 0)
         img /= 255
-        st.write("hi")
         st.image(img, caption='Uploaded Image', use_column_width=True)
     if class_btn:
         if file_uploaded is None:
@@ -74,14 +71,69 @@ def outputer(predictions):
     if predictions == 'S_Strawberry':
         st.success('Classified')
         st.write('Spoiled Strawberry')
-        st.pyplot(fig)
-    else:
+
+    if predictions == 'F_Lemon':
         st.success('Classified')
-        st.write(predictions)
-        st.pyplot(fig)
+        st.write('Fresh Lemon')
+
+    if predictions == 'F_Strawberry':
+        st.success('Classified')
+        st.write('Fresh Strawberry')
+
+    if predictions == 'F_Banana':
+        st.success('Classified')
+        st.write('Fresh Banana')
+
+    if predictions == 'S_Banana':
+        st.success('Classified')
+        st.write('Spoiled Banana')
+
+    if predictions == 'S_Lemon':
+        st.success('Classified')
+        st.write('Spoiled Lemon')
+
+    if predictions == 'S_Orange':
+        st.success('Classified')
+        st.write('Spoiled Orange')
+
+    if predictions == 'F_Orange':
+        st.success('Classified')
+        st.write('Fresh Orange')
+
+    if predictions == 'S_Mango':
+        st.success('Classified')
+        st.write('Spoiled Mango')
+
+    if predictions == 'F_Mango':
+        st.success('Classified')
+        st.write('Fresh Mango')
+
+    if predictions == 'S_Lulo':
+        st.success('Classified')
+        st.write('Spoiled Lulo')
+
+    if predictions == 'F_Lulo':
+        st.success('Classified')
+        st.write('Fresh Lulo')
+
+    if predictions == 'F_Tamarillo':
+        st.success('Classified')
+        st.write('Fresh Tamarillo')
+
+    if predictions == 'S_Tamarillo':
+        st.success('Classified')
+        st.write('Spoiled Tamarillo')
+
+    if predictions == 'F_Tomato':
+        st.success('Classified')
+        st.write('Fresh Tomato')
+
+    if predictions == 'S_Tomato':
+        st.success('Classified')
+        st.write('Spoiled Tomato')
+
 
         
-
 def predict(image):
     CLASSES = ['F_Banana', 'F_Lemon', 'F_Lulo', 'F_Mango', 'F_Orange', 'F_Strawberry', 'F_Tamarillo', 'F_Tomato', 'S_Banana', 'S_Lemon', 'S_Lulo', 'S_Mango', 'S_Orange', 'S_Strawberry', 'S_Tamarillo', 'S_Tomato']
 

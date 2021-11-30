@@ -49,12 +49,20 @@ def main():
         with open(os.path.join("tempDir",file_uploaded.name),"wb") as f:
             f.write(file_uploaded.getbuffer())
 
-        img = load_img('./tempDir/' + file_uploaded.name, target_size = (224, 224))
+        img = load_img('./tempDir/' + file_uploaded.name, target_size = (112, 112))
         img = img_to_array(img)
+
+        red = img[:,:,2].copy()
+        blue = img[:,:,0].copy()
+
+        img[:,:,0] = red
+        img[:,:,2] = blue
+
+        img /= 255
+
         image = Image.open(file_uploaded)
 
         img = np.expand_dims(img, axis = 0)
-        img /= 255
         st.image(img, caption='Uploaded Image', use_column_width=True)
     if class_btn:
         if file_uploaded is None:
@@ -137,7 +145,7 @@ def outputer(predictions):
 def predict(image):
     CLASSES = ['F_Banana', 'F_Lemon', 'F_Lulo', 'F_Mango', 'F_Orange', 'F_Strawberry', 'F_Tamarillo', 'F_Tomato', 'S_Banana', 'S_Lemon', 'S_Lulo', 'S_Mango', 'S_Orange', 'S_Strawberry', 'S_Tamarillo', 'S_Tomato']
 
-    model = keras.models.load_model('exportedModels') # 'exportedModels' is a folder not a file. Keras takes care of everything. 
+    model = keras.models.load_model('exportedModel5') # 'exportedModels' is a folder not a file. Keras takes care of everything. 
     prediction = model.predict(image) # Making the actual prediction. 
     #print(prediction) # The model simply returns a list of propabilities for what the object could be. 
     #print("\nIndex of the highest probability:", np.argmax(prediction))

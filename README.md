@@ -3,21 +3,33 @@
 Dependecies Needed: 
 
 [[source]]
+
 url = "https://pypi.org/simple"
+
 verify_ssl = true
+
 name = "pypi"
+
 
 [packages]
 tensorflow = "==2.2.0"
+
 streamlit = "==0.78.0"
+
 tensorflow-hub = "==0.11.0"
+
 numpy = "==1.19.5"
+
 matplotlib = "==3.2.2"
+
 Pillow = "==8.1.2"
+
 
 [dev-packages]
 
+
 [requires]
+
 python_version = "3.7"
 
 

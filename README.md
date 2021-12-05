@@ -1,4 +1,11 @@
-# READ ME: How to run
+# READ ME:
+
+To run and test:
+
+1. Download and check all dependencies listed below including streamlit (https://docs.streamlit.io/library/get-started/installation).
+2. Run the command "streamlit run app.py"
+3. Drag and drop an image into the indicated area and click classify. For your convinience, we have added an image called "myTomato.jpeg" for testing.
+4. Scroll below the image to see the results of the model.
 
 Dependecies Needed: 
 
@@ -32,11 +39,4 @@ Pillow = "==8.1.2"
 
 python_version = "3.7"
 
-
-To run and test:
-
-1. Download and check all dependencies listed above including streamlit (https://docs.streamlit.io/library/get-started/installation).
-2. Run the command "streamlit run app.py"
-3. Drag and drop an image into the indicated area and click classify. For your convinience, we have added an image called "myTomato.jpeg" for testing.
-4. Scroll below the image to see the results of the model.
 

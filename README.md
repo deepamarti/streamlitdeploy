@@ -1,4 +1,4 @@
-# ecs171group3
+# READ ME: How to run
 
 Dependecies Needed: 
 

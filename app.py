@@ -22,20 +22,6 @@ st.title('Fruit Classifier')
 
 st.markdown("Welcome to our web application that classifies fruits based on type and ripeness.")
 
-## Boilerplate code to get an imge from a folder. 
-def read_image(image):
-    #newsize = (224, 224)
-    #image.resize(newsize)
-    img_arr = img_to_array(image) # Turn the image into an array. 
-    ## IMPORTANT
-    ## Since the model is trained on batches, the model expects an input of (Batch_size,224,224,3), but the image is different.
-    ## It has a a size of (224,224,3)
-    ## In order to fix this, we just expand the dimensions of the image array to make it (1,224,224,3).
-    ## The 1 is there because we are only predicting one image. 
-    img_arr = np.expand_dims(img_arr, axis = 0)
-    img_arr /= 255 # Important to rescale the immage, otherwise the prediction will be wrong. 
-    return img_arr
-
 def load_image(image_file):
     img = Image.open(image_file)
     return img
@@ -50,6 +36,7 @@ def main():
             f.write(file_uploaded.getbuffer())
 
         img = load_img('./tempDir/' + file_uploaded.name, target_size = (112, 112))
+        st.image(img, caption='Uploaded Image', use_column_width=True)
         img = img_to_array(img)
 
         red = img[:,:,2].copy()
@@ -63,7 +50,6 @@ def main():
         image = Image.open(file_uploaded)
 
         img = np.expand_dims(img, axis = 0)
-        st.image(img, caption='Uploaded Image', use_column_width=True)
     if class_btn:
         if file_uploaded is None:
             st.write("Invalid command, please upload an image")
@@ -145,7 +131,7 @@ def outputer(predictions):
 def predict(image):
     CLASSES = ['F_Banana', 'F_Lemon', 'F_Lulo', 'F_Mango', 'F_Orange', 'F_Strawberry', 'F_Tamarillo', 'F_Tomato', 'S_Banana', 'S_Lemon', 'S_Lulo', 'S_Mango', 'S_Orange', 'S_Strawberry', 'S_Tamarillo', 'S_Tomato']
 
-    model = keras.models.load_model('exportedModel5') # 'exportedModels' is a folder not a file. Keras takes care of everything. 
+    model = keras.models.load_model('exportedModels') # 'exportedModels' is a folder not a file. Keras takes care of everything. 
     prediction = model.predict(image) # Making the actual prediction. 
     #print(prediction) # The model simply returns a list of propabilities for what the object could be. 
     #print("\nIndex of the highest probability:", np.argmax(prediction))
